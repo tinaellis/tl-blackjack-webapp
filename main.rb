@@ -32,4 +32,7 @@ post '/game_play' do
   erb :game_play
 end
 
+get '/game_over' do
+  erb :game_over
+end
 
