@@ -8,19 +8,28 @@ use Rack::Session::Cookie, :key => 'rack.session',
                             :secret => 'brains'
 
 get '/' do
-  redirect "/form"
-end
-
-get '/form' do
   erb :form
 end
 
-post '/bet' do
-  params['username']
+# controller (actions) does my verb and html match?
+# do I need to push/pull data from model for persistence?
+
+post '/form' do
+  session["username"] = params["username"]
+  redirect '/bet_form'
 end
 
-get '/bet' do
-  erb :bet
+post '/bet_form' do
+  erb :bet_form
+end
+
+post 'bet_form' do
+  session["bet_amount"] = params["bet_amount"]
+  redirect '/game_play'
+end
+
+post '/game_play' do
+  erb :game_play
 end
 
 
