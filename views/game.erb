@@ -15,11 +15,17 @@
   <% end %>
 </ul>
 
-<p>Player has two cards face up</p>
-<p>Player has 19. What would Player like to do? Player has $500 total. Bet amount this round: $50</p>
+<h4><%= session[:username] %> has <%= calculate_total(session[:player_cards]) %></h4>
+
+<p>Player has $500 total. Bet amount this round: $50</p>
 <p>Hit or stay?</p>
-<form action="/game" method="post">
-  <button type="button" name="hit">Hit</button>
-  <button type="button" name="stay">Stay</button>
+<% if some_condition %>
+<form action="/game/player/hit" method="post">
+  <input type="submit" class="btn" value="Hit"/>
 </form>
+
+<form action="/game/player/stay" method="post">
+  <input type="submit" class="btn" value="Stay"/>
+</form>
+<% end %>
 

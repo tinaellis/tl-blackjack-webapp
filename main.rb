@@ -13,16 +13,16 @@ use Rack::Session::Cookie, :key => 'rack.session',
 
 helpers do
   def calculate_total(cards)
-    arr = cards.map{|element| element[1}
+    arr = cards.map{|element| element[1]}
 
-    total = 0
-    arr.each do |a|
-      if a == "A"
-        total += 11
-      else
-        total += a.to_i == 0 ? 10 : a.to_i
+      total = 0
+      arr.each do |a|
+        if a == "A"
+          total += 11
+        else
+          total += a.to_i == 0 ? 10 : a.to_i
+        end
       end
-    end
 
     arr.select{|element| element == "A"}.count.times do
       break if total <= 21
@@ -30,8 +30,10 @@ helpers do
     end
     total
   end
-  # calculate_total(:players_cards) => number
+
 end
+
+# calculate_total(:players_cards) => number
 
 get '/' do
   if session["username"]
@@ -75,16 +77,20 @@ get '/game' do
   erb :game
 end
 
-post '/game' do
-  if session[:game] == params[:hit]
-    session[:player_cards] << session[:deck].pop
+post '/game/player/hit' do
+  session[:player_cards] << session[:deck].pop
+  if calculate_total(session[:player_cards]) > 21
+    @error = "Sorry, it looks like you busted."
   end
-  if session[:game] == params[:stay]
-    #add up cards
-  end
+  erb :game
 end
 
-get '/game_over' do
-  erb :game_over
+post '/game/player/stay' do
+  @success = "You have chosen to stay."
+  erb :game
 end
+
+
+
+
 
