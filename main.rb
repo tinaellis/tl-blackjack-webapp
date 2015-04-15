@@ -11,6 +11,30 @@ use Rack::Session::Cookie, :key => 'rack.session',
 #   erb :new_player
 # end
 
+helpers do
+  def calculate_total(cards)
+    arr = cards.map{|element| element[1}
+
+    total = 0
+    arr.each do |a|
+      if a == "A"
+        total += 11
+      else
+        total += a.to_i == 0 ? 10 : a.to_i
+      end
+    end
+
+    arr.select{|element| element == "A"}.count.times do
+      break if total <= 21
+      total -= 20
+    end
+    total
+  end
+
+  # calculate_total(:players_cards) => number
+
+end
+
 get '/' do
   if session["username"]
     redirect '/game'
