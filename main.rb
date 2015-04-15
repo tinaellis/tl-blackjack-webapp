@@ -26,13 +26,11 @@ helpers do
 
     arr.select{|element| element == "A"}.count.times do
       break if total <= 21
-      total -= 20
+      total -= 10
     end
     total
   end
-
   # calculate_total(:players_cards) => number
-
 end
 
 get '/' do
