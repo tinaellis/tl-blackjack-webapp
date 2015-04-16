@@ -124,32 +124,48 @@ post '/game/player/stay' do
   @success = "#{session[:username]} has chosen to stay."
   @show_hit_or_stay_buttons = false
   @dealers_next_card = true
-  erb :game
+  redirect '/game/dealer'
 end
 
-post '/game/dealer/deal' do
+get '/game/dealer' do
+  @show_hit_or_stay_buttons = false
   dealer_total = calculate_total(session[:dealer_cards])
-  player_total = calculate_total(session[:dealer_cards])
-  if dealer_total < 17
-    session[:dealer_cards] << session[:deck].pop
-  elsif dealer_total == 21
+
+  if dealer_total == 21
     @error = "Sorry, dealer hit Blackjack."
-    @dealers_next_card = false
     @play_again = true
-    erb :game
+
   elsif dealer_total > 21
     @success = "Congratulations, it looks like the dealer has busted."
-    @dealers_next_card = false
     @play_again = true
-    erb :game
-  elsif dealer_total == player_total
-    @error = "Sorry looks like it's a tie."
+
+  elsif dealer_total >= 17
+    redirect '/game/compare'
+  else
+    @show_dealer_hit_button = true
   end
-  @show_hit_or_stay_buttons = false
+
   erb :game
 end
 
+post '/game/dealer/hit' do
+  session[:dealer_cards] << session[:deck].pop
+  redirect '/game/dealer'
+end
 
+get '/game/compare' do
+  player_total = calculate_total(session[:player_cards])
+  dealer_total = calculate_total(session[:dealer_cards])
+  @play_again = true
+  if player_total < dealer_total
+    @error = "Sorry, you lost.."
+  elsif player_total > dealer_total
+    @error = "Congrats, you won!"
+  else
+    @success = "It's a tie"
+  end
+  erb :game
 
+end
 
 
