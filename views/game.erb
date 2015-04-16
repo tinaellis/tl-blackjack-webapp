@@ -1,31 +1,44 @@
 <h1>Let's Play Blackjack!</h1>
- <p>Welcome <%= session[:username] %>.</p>
+<p>Welcome <%= session[:username] %>.</p>
 
-<p>Dealer's cards:</p>
- <ul>
-  <% session[:dealer_cards].each do |card| %>
-    <li><%= card.to_s %></li>
-  <% end %>
-</ul>
+<% if @play_again %>
+  <form action="/game" method="get">
+    <input type="submit" class="btn btn-primary" value="Play Again?"/>
+  </form>
+<% end %>
 
-<p>Players's cards:</p>
-<ul>
-  <% session[:player_cards].each do |card| %>
-    <li><%= card.to_s %></li>
-  <% end %>
-</ul>
+<div class="well">
+  <h4>Dealer's cards:</h4>
+    <% session[:dealer_cards].each do |card| %>
+      <%= card_image(card) %>
+    <% end %>
+</div>
+<% if @dealers_next_card %>
+  <form action="/game/dealer/deal" method="post">
+    <input type="submit" class="btn btn-primary" value="Click to see dealer's next card ->"/>
+  </form>
+<% end %>
+
+<div class="well">
+  <h4>Players's cards:</h4>
+    <% session[:player_cards].each do |card| %>
+      <%= card_image(card) %>
+    <% end %>
+</div>
 
 <h4><%= session[:username] %> has <%= calculate_total(session[:player_cards]) %></h4>
 
-<p>Player has $500 total. Bet amount this round: $50</p>
-
 <% if @show_hit_or_stay_buttons %>
-  <p>Hit or stay?</p>
-  <form action="/game/player/hit" method="post">
-    <input type="submit" class="btn" value="Hit"/>
+  <p><%= session[:username] %>, what would you like to do?</p>
+  <form id="hit_form" action="/game/player/hit" method="post">
+    <input type="submit" class="btn btn-success" value="Hit"/>
   </form>
-  <form action="/game/player/stay" method="post">
-    <input type="submit" class="btn" value="Stay"/>
+  <form id="stay_form" action="/game/player/stay" method="post">
+    <input type="submit" class="btn btn-warning" value="Stay"/>
   </form>
 <% end %>
+
+
+
+
 
