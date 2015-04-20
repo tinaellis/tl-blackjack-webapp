@@ -1,0 +1,95 @@
+- - - - -
+unobrusive javascript
+ajax - issues the request behind the scenes, and when the update comes back - your code needs to parce the data
+
+<script src=“/application.js”></script>
+- don’t forget your slash, slash means go look at the root
+
+developers.google.com/speed/libraries/devguide#jquery
+- script src=“googleurl”
+- Google hosts query for us, even popular sites use. (Google provides CDN)
+
+————-
+<a id=“player_color” href=“#“>click</a>
+$(document).ready(function(){
+$(‘#player_color’).click(function(){
+$(this).css(‘background-color’,’yellow’);
+return false;
+});
+});
+
+— notes: To add alerts: —
+alert(‘hi!’);
+return false;
+..(won’t take you to the
+top of the page upon refresh)
+——————
+backbone, ember: frameworks created for building rich user experience (when managing large amounts of event listeners)
+
+————————————————————————————————————
+$(document).ready(function(){
+
+$(document).on(‘click’, ‘#hit_form input’, function() {
+$.ajax({
+  type: ‘POST’,
+  url: ‘/game/player/hit’
+
+}).done(function() {
+$(‘#game’).replaceWith(msg); (don’t forget to add game div)
+
+
+});
+return false
+
+});
+});
+
+then in sinatra..
+erg: game, layout: false
+
+console.log() - firebug, kind of like a binding.pry for firefox
+
+——————————
+Browser > Network > XHR at the bottom subnav. XHR stands for ajax requests. If you click
+——————————
+
+Deployment Options
+  Self Managed
+    - Shared Host
+      sucks
+    - VPS
+      (amazon, backspace, linode, digital ocean) Virtualized environment. You have to understand system administration process or have devops people.
+    - Dedicated server(hardware)
+      interface is just like vps, but you have a physical machine somewhere.
+
+  Managed
+  (Dont worry about system admin)
+  (have to worry about system admin constraints)
+
+    - Heroku
+
+    - Google App Engine
+
+    - Ninefold
+
+
+1. toolbelt.heroku.com
+2. cd into directory and type in heroku create
+
+Exception Handling..
+
+Books
+- Eloquent Ruby (after 2nd course)
+- Rails Tutorial
+(Get hung up on TDD - after 2/3rd course)
+- Agile Programming with Rails
+(do first half)
+-
+
+
+
+
+
+
+
+
