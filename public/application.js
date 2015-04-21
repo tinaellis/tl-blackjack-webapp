@@ -3,9 +3,16 @@
 // player stay,
 // and dealer hit actions.
 
-$(document).ready(function(){
+// player hit
 
-  $(document).on('click', '#hit_form input', function(){
+$(document).ready(function(){
+  player_hits();
+  player_stays();
+  dealer_hits();
+});
+
+function player_hits(){
+  $(document).on('click', 'form#hit_form input', function(){
     $.ajax({
       type: 'POST',
       url: '/game/player/hit'
@@ -16,9 +23,35 @@ $(document).ready(function(){
 
     return false;
   });
+}
 
-});
+function player_stays(){
+  $(document).on('click', 'form#stay_form input', function(){
+    $.ajax({
+      type: 'POST',
+      url: '/game/player/stay'
+      //data:
+    }).done(function(msg){
+      $('#game').replaceWith(msg);
+    });
 
+    return false;
+  });
+}
+
+function dealer_hits(){
+  $(document).on('click', 'form#dealer_hit input', function(){
+    $.ajax({
+      type: 'POST',
+      url: '/game/dealer/hit'
+      //data:
+    }).done(function(msg){
+      $('#game').replaceWith(msg);
+    });
+
+    return false;
+  });
+}
 
 //ajax explained: https://www.gotealeaf.com/lessons/baf2d715/assignments/1915
 //step 1
