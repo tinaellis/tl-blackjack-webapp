@@ -34,10 +34,10 @@
     <% end %>
 </div>
 
-<h4><%= session[:username] %> has <%= calculate_total(session[:player_cards]) %></h4>
+<h4><span class="text-success"><%= session[:username] %> has <%= calculate_total(session[:player_cards]) %>.</span> What would you like to do?</h4>
+<p class="muted"><%= session[:username] %> has <%= session[:max_bet] %>. Bet amount this round: <%= session[:bet_amount] %>.</p>
 
 <% if @show_hit_or_stay_buttons %>
-  <p><%= session[:username] %>, what would you like to do?</p>
   <form id="hit_form" action="/game/player/hit" method="post">
     <input type="submit" class="btn btn-success" value="Hit"/>
   </form>

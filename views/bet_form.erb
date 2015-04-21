@@ -1,8 +1,9 @@
 <h2>Make a bet for this round.</h2>
 
-<h4>Username has $500</h4>
+<h4><%= session[:username] %> has $<%= session[:max_bet] %></h4>
 
-<form action="/game" method="post">
+<form action="/bet_form" method="post">
   <input type="text" name="bet_amount"/>
+</br>
   <input type="submit" class="btn"/>
 </form>

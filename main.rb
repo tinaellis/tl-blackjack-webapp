@@ -51,6 +51,16 @@ helpers do
     "<img src='/images/cards/#{suit}_#{value}.jpg' class='card_image'>"
   end
 
+  def bet_win!(msg)
+    # session[:max_bet] = 500
+    @bet_win = session[:max_bet] - session[:bet_amount] = session[:max_bet]
+  end
+
+  def bet_lose!(msg)
+    # session[:max_bet] = 500
+    @bet_lose = session[:max_bet] - session[:bet_amount] = session[:max_bet]
+  end
+
   def winner!(msg)
     @success = "<strong>#{session[:username]} wins!</strong> #{msg}"
     @show_hit_or_stay_buttons = false
@@ -97,19 +107,26 @@ post '/new_player' do
     halt erb(:new_Player)
   end
   session[:username] = params[:username]
+  session[:max_bet] = 500
+  redirect '/bet_form'
+end
+
+get '/bet_form' do
+  erb :bet_form
+end
+
+post '/bet_form' do
+  if params[:bet_amount].empty?
+    @error = "Amount is required"
+    halt erb(:bet_form)
+  end
+  session[:bet_amount] = params[:bet_amount]
   redirect '/game'
 end
 
-
-
-# post '/bet_form' do
-#   session["bet_amount"] = params["bet_amount"]
-#   # redirect '/game'
-#   erb :bet_form
-# end
-
 get '/game' do
   session[:turn] = session[:username]
+
   # create a deck and put it in session
   suits = ['H', 'D', 'C', 'S']
   values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -132,8 +149,10 @@ post '/game/player/hit' do
 
   if player_total == BLACKJACK_AMOUNT
     winner!("Congratulations! #{session[:username]} has hit Blackjack!!")
+    bet_win!("Player's bet total is #{session[:max_bet]}.")
   elsif player_total > BLACKJACK_AMOUNT
     loser!("#{session[:username]} has busted with a total of #{player_total}.")
+    bet_lose!("Player's bet total is #{session[:max_bet]}.")
   end
   erb :game
 end
@@ -151,8 +170,10 @@ get '/game/dealer' do
 
   if dealer_total == BLACKJACK_AMOUNT
     loser!("Sorry, dealer hit Blackjack.")
+    bet_lose!("Player's bet total is #{session[:max_bet]}.")
   elsif dealer_total > BLACKJACK_AMOUNT
     winner!("Dealer busted with #{dealer_total}!")
+    bet_win!("Player's bet total is #{session[:max_bet]}.")
   elsif dealer_total >= DEALER_MIN_HIT
     redirect '/game/compare'
   else
@@ -172,8 +193,10 @@ get '/game/compare' do
 
   if player_total < dealer_total
     loser!("#{session[:username]} stayed at #{player_total}, and the dealer stayed at #{dealer_total}.")
+    bet_lose!("Player's bet total is #{session[:max_bet]}.")
   elsif player_total > dealer_total
     winner!("#{session[:username]} has stayed at #{player_total} and the dealer stayed at #{dealer_total}.")
+    bet_win!("Player's bet total is #{session[:max_bet]}.")
   else
     tie!("Both #{session[:username]} and the dealer stayed at #{player_total}.")
   end
