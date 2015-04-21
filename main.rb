@@ -145,7 +145,7 @@ post '/game/player/hit' do
     loser!("It looks like #{session[:player_name]} busted at #{player_total}.")
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 post '/game/player/stay' do
