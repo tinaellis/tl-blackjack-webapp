@@ -5,7 +5,7 @@ set :sessions, true
 
 BLACKJACK_AMOUNT = 21
 DEALER_MIN_HIT = 17
-INITIAL_POT_AMOUNT = 500
+
 
 helpers do
   def calculate_total(cards) # cards is [["H", "3"], ["D", "J"], ... ]
@@ -84,7 +84,7 @@ get '/' do
 end
 
 get '/new_player' do
-  session[:player_pot] = INITIAL_POT_AMOUNT
+  session[:player_pot] = 500
   erb :new_player
 end
 
