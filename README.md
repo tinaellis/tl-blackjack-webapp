@@ -1,3 +1,4 @@
+# Blackjack Game
 A blackjack game app created using Sinatra and deployed to Heroku.
 
 1. Make sure the 'sinatra' gem is installed.
