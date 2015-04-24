@@ -7,11 +7,147 @@ form#stay_form {
 float:left;
 }
 
-img.card_image {
-margin: 0 5px 5px 0;
-}
-
 div#play_again a {
   margin-left:5px;
   margin-bottom:10px;
 }
+
+body {
+  padding-top: 5%;
+  background-color: #20371e;
+}
+
+.game-table {
+  background-image:url("images/blackjack_board.jpg");
+  background-repeat:no-repeat;
+  background-size:950px;
+  background-position:center;
+  background-attachment:scroll;
+  padding-top: 5%;
+  height:500px;
+}
+
+h1 {
+  color: white;
+}
+
+h4 {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+.heading {
+  margin: 0 0 5px 20px;
+  background-color:rgba(0, 0, 0, 0.5);
+  width:250px;
+}
+
+#player-options {
+  padding:5px 5px 5px 20px;
+}
+
+section img {
+  width:100px;
+}
+
+section {
+  padding-left:350px;
+}
+
+section#player {
+  padding-top:5px;
+}
+
+section#dealer {
+  margin-top: -125px;
+}
+
+#form-questions {
+  margin: 0% 0 5% 2%;
+  background-color:rgba(0, 0, 0, 0.5);
+  width:350px;
+}
+
+#form-questions h3 {
+  padding:5px 0 0 20px;
+  color:white;
+}
+
+#form-questions p {
+  padding-left:20px;
+  color:white;
+}
+
+#form-questions a {
+  padding-left:20px;
+  color:orange;
+}
+
+#form-questions form {
+  padding:0 5px 15px 20px;
+}
+
+#player-options h4 {
+  color:white;
+}
+
+#player-options h2 {
+  color:#faad41;
+  font-size:16px;
+}
+
+#player p {
+  color:white;
+  margin-left:50px;
+  margin-top:40px;
+}
+
+#messages {
+  margin-top:-50px;
+  margin-bottom:86px;
+}
+
+#dealer h4 {
+  color:#22221d;
+}
+
+#player h4 {
+  color:#22221d;
+}
+
+#dealer h5 {
+  color:orange;
+}
+
+#play-again h4 {
+  color:orange;
+}
+
+#play-again {
+  margin-left:20px;
+  width: 300px;
+}
+
+.navbar-inner {
+background-image: linear-gradient(to bottom,#3d3e39,#151611)
+}
+
+.navbar .nav>li>a {
+  text-shadow:none;
+  color:#b6b6b6;
+}
+
+.navbar .nav>li>a:hover {
+  color:orange;
+  text-shadow:none;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+border-color: orange;
+}
+
+
+
